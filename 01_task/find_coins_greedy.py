@@ -1,19 +1,17 @@
 def find_coins_greedy(sum: int, denomination: list[int]) -> dict[int, int]:
-    denomination.sort(reverse=True)
+    denomination = sorted(denomination, reverse=True)
     res = {}
 
-    coin_idx = 0
-    # proceed until the last coin is not bigger than sum 
-    # not possible if we have a coin with `1` denomination
-    while (sum >= denomination[-1]):
-        coin_val = denomination[coin_idx]
+    for coin in denomination:
+        num = 0
+        while (coin <= sum):
+            num += 1
+            sum -= coin
 
-        if coin_val > sum:  # move to the smaller coin
-            coin_idx += 1
-            continue
+        if num:  # do not track skipped coins
+            res[coin] = num
 
-        sum -= coin_val
-        print(coin_val)
-        res[coin_val] = res.get(coin_val, 0) + 1
+        if not sum:  # early return if all coins are found
+            return res
 
     return res
