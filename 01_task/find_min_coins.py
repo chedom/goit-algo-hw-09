@@ -1,6 +1,7 @@
 def find_min_coins(sum: int, denomination: list[int]) -> dict[int, int]:
-    K = [float('inf')] * (sum + 1)
-    K[0] = 0
+    K = [float('inf')] * (sum + 1)  # initialize table with partial solutions
+    K[0] = 0  # for `sum` 0 we need 0 coins
+    # used to track which coin was used at specifed step
     used_coins = [0] * (sum + 1)
 
     for i in range(sum+1):
